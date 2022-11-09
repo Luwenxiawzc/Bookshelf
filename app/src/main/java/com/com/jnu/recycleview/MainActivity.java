@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         DataSaver dataSaver=new DataSaver();
         books=dataSaver.Load(this);
 
-        books = new ArrayList<>();
         for (int i = 1; i < 2; ++i) {
             Book a = new Book("软件项目管理案例教程（第4版）", R.drawable.book_2);
             books.add(a);

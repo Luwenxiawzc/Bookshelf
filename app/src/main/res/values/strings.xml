@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RecycleView</string>
+    <string name="app_name">个人图书管理</string>
     <string name="confirmation">Confirmation</string>
     <string name="sure_to_delete">Are you sure to delete the item?</string>
     <string name="yes">Yes</string>
