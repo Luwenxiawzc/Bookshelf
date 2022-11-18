@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                         Bundle bundle=intent.getExtras();
                         String title=bundle.getString("title");//获得传回的新的title
                         int position=bundle.getInt("position");//获得传回的当前数据的位置
-                        books.add(position, new Book(title,R.drawable.book_no_name));//添加一个新的Book
+                        books.add(position, new Book(title,R.drawable.book_no_name,"钱松"));//添加一个新的Book
                         new DataSaver().Save(this,books);//数据保存
                         mainRecycleViewAdapter.notifyItemInserted(position);//通知适配器数据增加
                     }
@@ -76,17 +76,18 @@ public class MainActivity extends AppCompatActivity {
         DataSaver dataSaver=new DataSaver();
         books=dataSaver.Load(this);
 
-        for (int i = 1; i < 2; ++i) {
-            Book a = new Book("软件项目管理案例教程（第4版）", R.drawable.book_2);
-            books.add(a);
-            Book b = new Book("创新工程实践", R.drawable.book_no_name);
-            books.add(b);
-            Book c = new Book("信息安全数学基础（第2版）", R.drawable.book_1);
-            books.add(c);
+        if(books.size()==0) {
+            for (int i = 1; i < 2; ++i) {
+                Book a = new Book("软件项目管理案例教程（第4版）", R.drawable.book_2,"韩万江","姜立新","新华出版社","2002","1234567",true,"已读","http.ydrj");
+                books.add(a);
+                Book b = new Book("创新工程实践", R.drawable.book_no_name,"钱松","徐振华","化学工业出版社","2018","12345678",true,"已读","http.cxgc");
+                books.add(b);
+                Book c = new Book("信息安全数学基础（第2版）", R.drawable.book_1,"徐茂智","姜立新","高等教育出版社","2006","12345678",true,"已读","http.cxgc");
+                books.add(c);
+            }
         }
         mainRecycleViewAdapter = new MainRecycleViewAdapter(books);
         recyclerViewMain.setAdapter(mainRecycleViewAdapter);
-
     }
 
     @Override
@@ -129,12 +130,14 @@ public class MainActivity extends AppCompatActivity {
         private final ArrayList<Book> localDataSet;
 
         public static final class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
-            private final TextView textView;
+            private final TextView textView_title;
+            private final TextView textView_author;
             private final ImageView imageview;
 
             public ViewHolder(View view) {
                 super(view);
-                textView = view.findViewById(R.id.text_view_book_title);
+                textView_title = view.findViewById(R.id.text_view_book_title);
+                textView_author = view.findViewById(R.id.text_view_book_author);
                 imageview = view.findViewById(R.id.image_view_book_cover);
 
                 view.setOnCreateContextMenuListener(this);
@@ -163,7 +166,8 @@ public class MainActivity extends AppCompatActivity {
         public void onBindViewHolder(ViewHolder viewHolder, int position) {
             Book book = localDataSet.get(position);
             viewHolder.imageview.setImageResource(book.getCoverResourceId());
-            viewHolder.textView.setText(book.getTitle());
+            viewHolder.textView_title.setText(book.getTitle());
+            viewHolder.textView_author.setText(book.getAuthor());
         }
 
         @Override
