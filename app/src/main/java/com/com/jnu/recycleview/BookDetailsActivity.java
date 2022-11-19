@@ -2,15 +2,11 @@ package com.com.jnu.recycleview;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.com.jnu.recycleview.data.Book;
 
 public class BookDetailsActivity extends AppCompatActivity {
 
@@ -35,8 +31,6 @@ public class BookDetailsActivity extends AppCompatActivity {
         //imageView_show_cover.setImageBitmap(bitmap);
 
         imageView_show_cover.setImageResource(R.drawable.book_header);
-
-        //imageView_show_cover.setImageResource(intent.getIntExtra("cover"));
 
         textView_show_title.setText(intent.getStringExtra("title"));
         textView_show_author.setText(intent.getStringExtra("author"));

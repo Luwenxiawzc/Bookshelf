@@ -31,7 +31,7 @@
             android:id="@+id/book_show_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/book_show_title"
             android:textSize="23sp" />
     </LinearLayout>
@@ -52,7 +52,7 @@
             android:id="@+id/book_show_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/book_show_author"
             android:textSize="23sp" />
     </LinearLayout>
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:text="@string/book_show_translator"
             android:textSize="23sp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:text="@string/book_show_publisher"
             android:textSize="23sp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:text="@string/book_show_pubTime"
             android:textSize="23sp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -138,7 +138,7 @@
             android:layout_height="wrap_content"
             android:text="@string/book_show_isbn"
             android:textSize="23sp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -159,7 +159,7 @@
             android:layout_height="wrap_content"
             android:text="@string/book_show_notes"
             android:textSize="23sp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -180,7 +180,7 @@
             android:layout_height="wrap_content"
             android:text="@string/book_show_website"
             android:textSize="23sp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="10dp"/>
     </LinearLayout>
 
     <Button

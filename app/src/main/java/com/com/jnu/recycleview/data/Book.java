@@ -4,16 +4,8 @@ import java.io.Serializable;
 
 public class Book implements Serializable {//对象序列化
 
-    public Book(String title, int coverResourceId,String author) {
-        this.title = title;
-        this.coverResourceId = coverResourceId;
-        this.author=author;
-    }
-
     private String title;//书名
     private int coverResourceId;//书的图片
-
-    //以下为添加的代码
     private String author;//作者
     private String translator;//译者
     private String publisher;//出版社

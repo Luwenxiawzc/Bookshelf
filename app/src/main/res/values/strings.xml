@@ -4,8 +4,6 @@
     <string name="sure_to_delete">Are you sure to delete the item?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="new_title">Title</string>
-    <string name="new_name">Name</string>
     <string name="button_确定">确定</string>
     <string name="button_取消">取消</string>
     <string name="button_返回">返回</string>
@@ -26,6 +24,6 @@
     <string name="book_show_isbn_1">isbn:</string>
     <string name="book_show_notes_1">notes:</string>
     <string name="book_show_website_1">website:</string>
-
+    <string name="edti_book_context">编辑书本内容</string>
 
 </resources>

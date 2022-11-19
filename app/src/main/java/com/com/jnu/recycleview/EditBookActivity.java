@@ -18,11 +18,25 @@ public class EditBookActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_book_activity);
 
         position=this.getIntent().getIntExtra("position",0);//传入当前位置
-        EditText editTextTitle=findViewById(R.id.edittext_shop_item_title);
+        EditText book_edit_title=findViewById(R.id.book_edit_title);
+        EditText book_edit_author=findViewById(R.id.book_edit_author);
+        EditText book_edit_translator=findViewById(R.id.book_edit_translator);
+        EditText book_edit_publisher=findViewById(R.id.book_edit_publisher);
+        EditText book_edit_pubTime=findViewById((R.id.book_edit_pubTime));
+        EditText book_edit_isbn=findViewById(R.id.book_edit_isbn);
+        EditText book_edit_notes=findViewById(R.id.book_edit_notes);
+        EditText book_edit_website=findViewById(R.id.book_edit_website);
 
         String title=this.getIntent().getStringExtra("title");//传入当前title
         if(null!=title){
-            editTextTitle.setText(title);//将EditText的值修改为传过来的title
+            book_edit_title.setText(title);//将EditText的值修改为传过来的title
+            book_edit_author.setText(this.getIntent().getStringExtra("author"));
+            book_edit_translator.setText(this.getIntent().getStringExtra("translator"));
+            book_edit_publisher.setText(this.getIntent().getStringExtra("publisher"));
+            book_edit_pubTime.setText(this.getIntent().getStringExtra("pubTime"));
+            book_edit_isbn.setText(this.getIntent().getStringExtra("isbn"));
+            book_edit_notes.setText(this.getIntent().getStringExtra("notes"));
+            book_edit_website.setText(this.getIntent().getStringExtra("website"));
         }//title为空是增加操作，不为空是更新操作
 
         Button button_yes=findViewById(R.id.button_确定);
@@ -33,7 +47,14 @@ public class EditBookActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
-                bundle.putString("title", editTextTitle.getText().toString());//传回新输入的title
+                bundle.putString("title", book_edit_title.getText().toString());//传回新输入的title
+                bundle.putString("author", book_edit_author.getText().toString());
+                bundle.putString("translator", book_edit_translator.getText().toString());
+                bundle.putString("publisher", book_edit_publisher.getText().toString());
+                bundle.putString("pubTime", book_edit_pubTime.getText().toString());
+                bundle.putString("isbn", book_edit_isbn.getText().toString());
+                bundle.putString("notes", book_edit_notes.getText().toString());
+                bundle.putString("website", book_edit_website.getText().toString());
                 bundle.putInt("position",position);//传回当前位置
 
                 intent.putExtras(bundle);

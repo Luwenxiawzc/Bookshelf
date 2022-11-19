@@ -8,8 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -20,8 +18,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.com.jnu.recycleview.data.Book;
 import com.com.jnu.recycleview.data.DataSaver;
-
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,9 +37,10 @@ public class MainActivity extends AppCompatActivity {
                     {
                         assert intent != null;
                         Bundle bundle=intent.getExtras();
-                        String title=bundle.getString("title");//获得传回的新的title
                         int position=bundle.getInt("position");//获得传回的当前数据的位置
-                        books.add(position, new Book(title,R.drawable.book_no_name,"钱松"));//添加一个新的Book
+                        books.add(position, new Book(bundle.getString("title"),R.drawable.book_header,bundle.getString("author"),
+                                bundle.getString("translator"),bundle.getString("publisher"),bundle.getString("pubTime"),
+                                bundle.getString("isbn"),true,bundle.getString("notes"),bundle.getString("website")));//添加一个新的Book
                         new DataSaver().Save(this,books);//数据保存
                         mainRecycleViewAdapter.notifyItemInserted(position);//通知适配器数据增加
                     }
@@ -57,9 +54,15 @@ public class MainActivity extends AppCompatActivity {
                     {
                         assert intent != null;
                         Bundle bundle=intent.getExtras();
-                        String title=bundle.getString("title");//获得传回的新的title
                         int position=bundle.getInt("position");//获得传回的当前数据的位置
-                        books.get(position).setTitle(title);//修改title为传回的新的title
+                        books.get(position).setTitle(bundle.getString("title"));
+                        books.get(position).setAuthor(bundle.getString("author"));
+                        books.get(position).setTranslator(bundle.getString("translator"));
+                        books.get(position).setPublisher(bundle.getString("publisher"));
+                        books.get(position).setPubTime(bundle.getString("pubTime"));
+                        books.get(position).setIsbn(bundle.getString("isbn"));
+                        books.get(position).setNotes(bundle.getString("notes"));
+                        books.get(position).setWebsite(bundle.getString("website"));
                         new DataSaver().Save(this,books);//数据保存
                         mainRecycleViewAdapter.notifyItemChanged(position);//通知适配器数据更改
                     }
@@ -107,6 +110,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent intentupdate=new Intent(this, EditBookActivity.class);
                 intentupdate.putExtra("position",item.getOrder());//传递当前位置
                 intentupdate.putExtra("title",books.get(item.getOrder()).getTitle());//传递当前的title
+                intentupdate.putExtra("author",books.get(item.getOrder()).getAuthor());
+                intentupdate.putExtra("translator",books.get(item.getOrder()).getTranslator());
+                intentupdate.putExtra("publisher",books.get(item.getOrder()).getPublisher());
+                intentupdate.putExtra("pubTime",books.get(item.getOrder()).getPubTime());
+                intentupdate.putExtra("isbn",books.get(item.getOrder()).getIsbn());
+                intentupdate.putExtra("notes",books.get(item.getOrder()).getNotes());
+                intentupdate.putExtra("website",books.get(item.getOrder()).getWebsite());
                 updateDataLauncher.launch(intentupdate);//数据回传
                 break;
             case MENU_ID_DELETE:
