@@ -23,7 +23,6 @@
             android:inputType="textPersonName"
             android:text="@string/new_name"
             tools:ignore="LabelFor" />
-
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

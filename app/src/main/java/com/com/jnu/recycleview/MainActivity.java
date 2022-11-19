@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import com.com.jnu.recycleview.data.Book;
 import com.com.jnu.recycleview.data.DataSaver;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int MENU_ID_ADD =1;
     private static final int MENU_ID_UPDATE =2;
     private static final int MENU_ID_DELETE =3;
+    private static final int MENU_ID_DETAILS =4;
     public ArrayList<Book> books;//Book列表
     private MainRecycleViewAdapter mainRecycleViewAdapter;
 
@@ -117,6 +121,21 @@ public class MainActivity extends AppCompatActivity {
                         }).create();
                 alertDialog.show();//对话框
                 break;
+            case MENU_ID_DETAILS:
+                Intent intent_details=new Intent(this, BookDetailsActivity.class);
+                //Bitmap bitmap=BitmapFactory.decodeResource(getResources(), books.get(item.getOrder()).getCoverResourceId());
+                //intent_details.putExtra("cover", bitmap);
+
+                intent_details.putExtra("title",books.get(item.getOrder()).getTitle());
+                intent_details.putExtra("author",books.get(item.getOrder()).getAuthor());
+                intent_details.putExtra("translator",books.get(item.getOrder()).getTranslator());
+                intent_details.putExtra("publisher",books.get(item.getOrder()).getPublisher());
+                intent_details.putExtra("pubTime",books.get(item.getOrder()).getPubTime());
+                intent_details.putExtra("isbn",books.get(item.getOrder()).getIsbn());
+                intent_details.putExtra("notes",books.get(item.getOrder()).getNotes());
+                intent_details.putExtra("website",books.get(item.getOrder()).getWebsite());
+                startActivity(intent_details);
+                break;
         }
         return super.onContextItemSelected(item);
     }
@@ -148,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 contextMenu.add(0,MENU_ID_ADD,getAdapterPosition(),"Add "+getAdapterPosition());
                 contextMenu.add(0,MENU_ID_UPDATE,getAdapterPosition(),"Update "+getAdapterPosition());
                 contextMenu.add(0,MENU_ID_DELETE,getAdapterPosition(),"Delete "+getAdapterPosition());
+                contextMenu.add(0,MENU_ID_DETAILS,getAdapterPosition(),"Details "+getAdapterPosition());
             }//上下文菜单的设置
         }
 

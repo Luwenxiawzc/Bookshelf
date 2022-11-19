@@ -30,13 +30,13 @@
                 android:maxLines="1"
                 android:textColor="@android:color/black"/>
                 <TextView
-                android:id="@+id/text_view_book_author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:ellipsize="end"
-                android:textSize="17sp"
-                android:maxLines="1"
-                android:textColor="@android:color/black"/>
+                    android:id="@+id/text_view_book_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:ellipsize="end"
+                    android:textSize="17sp"
+                    android:maxLines="1"
+                    android:textColor="@android:color/black" />
         </LinearLayout>
 </LinearLayout>
