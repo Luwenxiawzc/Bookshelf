@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 public class EditBookActivity extends AppCompatActivity {
 
@@ -18,6 +19,7 @@ public class EditBookActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_book_activity);
 
         position=this.getIntent().getIntExtra("position",0);//传入当前位置
+        ImageView imageView_edit_cover=findViewById(R.id.book_edit_cover);
         EditText book_edit_title=findViewById(R.id.book_edit_title);
         EditText book_edit_author=findViewById(R.id.book_edit_author);
         EditText book_edit_translator=findViewById(R.id.book_edit_translator);
@@ -26,6 +28,8 @@ public class EditBookActivity extends AppCompatActivity {
         EditText book_edit_isbn=findViewById(R.id.book_edit_isbn);
         EditText book_edit_notes=findViewById(R.id.book_edit_notes);
         EditText book_edit_website=findViewById(R.id.book_edit_website);
+
+        imageView_edit_cover.setImageResource(R.drawable.book_header);
 
         String title=this.getIntent().getStringExtra("title");//传入当前title
         if(null!=title){
