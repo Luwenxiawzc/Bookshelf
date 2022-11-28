@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -181,9 +182,17 @@ public class MainActivity extends AppCompatActivity {
                 addDataLauncher.launch(intent);
             }
         });
+
+        //关于
+        Button button_about=findViewById(R.id.button_about);
+        button_about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,AboutActivity.class) ;
+                startActivity(intent);
+            }
+        });
     }
-
-
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {

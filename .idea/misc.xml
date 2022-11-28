@@ -13,11 +13,14 @@
         <entry key="..\:/huigun/bookshelf/app/src/main/res/drawable/ic_add.xml" value="0.1315" />
         <entry key="..\:/huigun/bookshelf/app/src/main/res/drawable/ic_search.xml" value="0.1915" />
         <entry key="..\:/huigun/bookshelf/app/src/main/res/layout/activity__book_details.xml" value="0.2328125" />
+        <entry key="..\:/huigun/bookshelf/app/src/main/res/layout/activity_abaout.xml" value="0.2033514492753623" />
+        <entry key="..\:/huigun/bookshelf/app/src/main/res/layout/activity_about.xml" value="0.2033514492753623" />
         <entry key="..\:/huigun/bookshelf/app/src/main/res/layout/activity_book_details.xml" value="0.14673913043478262" />
         <entry key="..\:/huigun/bookshelf/app/src/main/res/layout/activity_book_details2.xml" value="0.14673913043478262" />
         <entry key="..\:/huigun/bookshelf/app/src/main/res/layout/activity_edit_book_activity.xml" value="0.2" />
         <entry key="..\:/huigun/bookshelf/app/src/main/res/layout/activity_main.xml" value="0.11372847011144883" />
         <entry key="..\:/huigun/bookshelf/app/src/main/res/layout/book_list_main.xml" value="0.11372847011144883" />
+        <entry key="..\:/huigun/bookshelf/app/src/main/res/layout/fragment_about.xml" value="0.23385416666666667" />
         <entry key="..\:/huigun/bookshelf/app/src/main/res/layout/toolbar_main.xml" value="0.1671195652173913" />
         <entry key="..\:/huigun/bookshelf/app/src/main/res/menu/drawer_menu.xml" value="0.2484375" />
         <entry key="..\:/huigun/bookshelf/app/src/main/res/menu/menu_search.xml" value="0.21822916666666667" />

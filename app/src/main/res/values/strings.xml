@@ -29,4 +29,27 @@
     <string name="侧边栏文字">管理您的书籍</string>
     <string name="navigation_drawer_open">开</string>
     <string name="navigation_drawer_close">关</string>
+
+    <!--about-->
+    <string name="about_preference_category_title">About</string>
+    <string name="about_preference_rate_title">Rate Me</string>
+    <string name="about_preference_rate_summary">Please give five stars if you find it useful</string>
+    <string name="about_preference_donate_title">Donate Me</string>
+    <string name="about_preference_donate_summary">Donations are greatly appreciated</string>
+    <string name="about_donate_dialog_content">Your donations will be my motivation to make this app better.\nMy PayPal &amp; Alipay account is smartjinyu@gmail.com.\nThanks for your support!</string>
+    <string name="about_donate_dialog_positive0">Alipay</string>
+    <string name="about_donate_dialog_negative0">Copy Account</string>
+    <string name="about_donate_alipay_qrcode" translatable="false">aex01588ztl2mjttjpwtzae</string>
+    <string name="about_preference_donate_toast">My account has been copied to clipboard! Thanks for your donating!</string>
+    <string name="about_preference_github_repository">Open Source</string>
+    <string name="about_preference_feedback_title">Feedback</string>
+    <string name="about_preference_feedback_summary">Contact me if any suggestions or complaints</string>
+    <string name="about_preference_license">License</string>
+    <string name="about_preference_license_dialog">Open Source License</string>
+    <string name="about_preference_privacy_policy">Privacy Policy</string>
+    <string name="about_preference_term_of_service">Term of Service</string>
+    <string name="about_preference_feedback_email_address" translatable="false">smartjinyu@gmail.com</string>
+    <string name="about_preference_no_email_client_toast">No email client available on your device! Please send your feedback to %1$s.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
