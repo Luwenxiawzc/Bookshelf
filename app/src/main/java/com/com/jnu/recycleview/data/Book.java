@@ -14,6 +14,7 @@ public class Book implements Serializable {//对象序列化
     private boolean hasCover;//是否有封面
     private String notes;//笔记
     private String website;//网站
+    private String label;// 标签
 
     public Book(String title, int coverResourceId,String author, String translator, String publisher, String pubTime, String isbn, boolean hasCover, String notes, String website) {
         this.title = title;
@@ -108,5 +109,13 @@ public class Book implements Serializable {//对象序列化
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

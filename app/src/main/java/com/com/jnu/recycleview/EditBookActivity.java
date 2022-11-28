@@ -28,7 +28,6 @@ public class EditBookActivity extends AppCompatActivity {
         EditText book_edit_isbn=findViewById(R.id.book_edit_isbn);
         EditText book_edit_notes=findViewById(R.id.book_edit_notes);
         EditText book_edit_website=findViewById(R.id.book_edit_website);
-
         imageView_edit_cover.setImageResource(R.drawable.book_header);
 
         String title=this.getIntent().getStringExtra("title");//传入当前title

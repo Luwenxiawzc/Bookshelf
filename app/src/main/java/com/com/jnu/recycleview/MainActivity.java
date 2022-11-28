@@ -3,8 +3,11 @@ package com.com.jnu.recycleview;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
@@ -15,9 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.com.jnu.recycleview.data.Book;
 import com.com.jnu.recycleview.data.DataSaver;
+import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -74,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ImageView imageView_1=findViewById(R.id.book_show);
+        imageView_1.setImageResource(R.drawable.book_cover);
         RecyclerView recyclerViewMain = findViewById(R.id.recycle_view_books);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -95,6 +103,75 @@ public class MainActivity extends AppCompatActivity {
         }
         mainRecycleViewAdapter = new MainRecycleViewAdapter(books);
         recyclerViewMain.setAdapter(mainRecycleViewAdapter);
+
+        //SearchView搜索
+        SearchView searchView=findViewById(R.id.searchview);
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this,"open",Toast.LENGTH_SHORT).show();//点击搜索框
+            }
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                int i=0;
+                for(;i<books.size();i++){
+                    if(query.equals(books.get(i).getTitle())){
+                        //show
+                        break;
+                    }
+                }
+                if(i==books.size()){
+                    Toast.makeText(MainActivity.this,"dd",Toast.LENGTH_SHORT).show();
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                return false;
+            }
+        });
+
+        //侧边
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        NavigationView mNavigationView = (NavigationView) findViewById(R.id.activity_main_navigationView);
+        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.DrawerLayout);
+        //添加toolbar的menu部分
+        mToolbar.inflateMenu(R.menu.drawer_menu);
+        ActionBarDrawerToggle mActionBarDrawerToggle=new ActionBarDrawerToggle(this,mDrawerLayout,mToolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+        };
+
+        mActionBarDrawerToggle.syncState();
+        mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);//setDrawerListener弃用
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                switch (id){
+                    case R.id.drawer_menu:
+                        mDrawerLayout.closeDrawers();
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -154,11 +231,11 @@ public class MainActivity extends AppCompatActivity {
         return books;
     }
 
-    public static class MainRecycleViewAdapter extends RecyclerView.Adapter<MainRecycleViewAdapter.ViewHolder> {
+    public class MainRecycleViewAdapter extends RecyclerView.Adapter<MainRecycleViewAdapter.ViewHolder> {
 
         private final ArrayList<Book> localDataSet;
 
-        public static final class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+        public final class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
             private final TextView textView_title;
             private final TextView textView_author;
             private final ImageView imageview;

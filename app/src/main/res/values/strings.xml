@@ -25,5 +25,8 @@
     <string name="book_show_notes_1">notes:</string>
     <string name="book_show_website_1">website:</string>
     <string name="edti_book_context">编辑书本内容</string>
-
+    <string name="侧边栏标题">BookShelf</string>
+    <string name="侧边栏文字">管理您的书籍</string>
+    <string name="navigation_drawer_open">开</string>
+    <string name="navigation_drawer_close">关</string>
 </resources>
