@@ -25,42 +25,40 @@ import com.com.jnu.recycleview.data.Book;
 import com.com.jnu.recycleview.data.DataSaver;
 import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int MENU_ID_ADD =1;
-    private static final int MENU_ID_UPDATE =2;
-    private static final int MENU_ID_DELETE =3;
-    private static final int MENU_ID_DETAILS =4;
+    private static final int MENU_ID_UPDATE = 1;
+    private static final int MENU_ID_DELETE = 2;
+    private static final int MENU_ID_DETAILS = 3;
     public ArrayList<Book> books;//Book列表
     private MainRecycleViewAdapter mainRecycleViewAdapter;
 
-    private final ActivityResultLauncher<Intent> addDataLauncher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            result->{
-                if(null!=result){
-                    Intent intent=result.getData();//获得传回的intent
-                    if(result.getResultCode()== EditBookActivity.RESULT_CODE_SUCCESS)
-                    {
+    private final ActivityResultLauncher<Intent> addDataLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (null != result) {
+                    Intent intent = result.getData();//获得传回的intent
+                    if (result.getResultCode() == EditBookActivity.RESULT_CODE_SUCCESS) {
                         assert intent != null;
-                        Bundle bundle=intent.getExtras();
-                        int position=bundle.getInt("position");//获得传回的当前数据的位置
-                        books.add(position, new Book(bundle.getString("title"),R.drawable.book_header,bundle.getString("author"),
-                                bundle.getString("translator"),bundle.getString("publisher"),bundle.getString("pubTime"),
-                                bundle.getString("isbn"),true,bundle.getString("notes"),bundle.getString("website")));//添加一个新的Book
-                        new DataSaver().Save(this,books);//数据保存
+                        Bundle bundle = intent.getExtras();
+                        int position = bundle.getInt("position");//获得传回的当前数据的位置
+                        books.add(position, new Book(bundle.getString("title"), R.drawable.book_header, bundle.getString("author"),
+                                bundle.getString("translator"), bundle.getString("publisher"), bundle.getString("pubTime"),
+                                bundle.getString("isbn"), true, bundle.getString("notes"), bundle.getString("website")));//添加一个新的Book
+                        new DataSaver().Save(this, books);//数据保存
                         mainRecycleViewAdapter.notifyItemInserted(position);//通知适配器数据增加
                     }
                 }
-            } );//新的数据传递（add的数据回传）
-    private final ActivityResultLauncher<Intent> updateDataLauncher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            result->{
-                if(null!=result){
-                    Intent intent=result.getData();//获得传回的intent
-                    if(result.getResultCode()== EditBookActivity.RESULT_CODE_SUCCESS)
-                    {
+            });//新的数据传递（add的数据回传）
+    private final ActivityResultLauncher<Intent> updateDataLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (null != result) {
+                    Intent intent = result.getData();//获得传回的intent
+                    if (result.getResultCode() == EditBookActivity.RESULT_CODE_SUCCESS) {
                         assert intent != null;
-                        Bundle bundle=intent.getExtras();
-                        int position=bundle.getInt("position");//获得传回的当前数据的位置
+                        Bundle bundle = intent.getExtras();
+                        int position = bundle.getInt("position");//获得传回的当前数据的位置
                         books.get(position).setTitle(bundle.getString("title"));
                         books.get(position).setAuthor(bundle.getString("author"));
                         books.get(position).setTranslator(bundle.getString("translator"));
@@ -69,18 +67,18 @@ public class MainActivity extends AppCompatActivity {
                         books.get(position).setIsbn(bundle.getString("isbn"));
                         books.get(position).setNotes(bundle.getString("notes"));
                         books.get(position).setWebsite(bundle.getString("website"));
-                        new DataSaver().Save(this,books);//数据保存
+                        new DataSaver().Save(this, books);//数据保存
                         mainRecycleViewAdapter.notifyItemChanged(position);//通知适配器数据更改
                     }
                 }
-            } );//新的数据传递（update的数据回传）
+            });//新的数据传递（update的数据回传）
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageView imageView_1=findViewById(R.id.book_show);
+        ImageView imageView_1 = findViewById(R.id.book_show);
         imageView_1.setImageResource(R.drawable.book_cover);
         RecyclerView recyclerViewMain = findViewById(R.id.recycle_view_books);
 
@@ -88,16 +86,16 @@ public class MainActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);//垂直
         recyclerViewMain.setLayoutManager(linearLayoutManager);
 
-        DataSaver dataSaver=new DataSaver();
-        books=dataSaver.Load(this);
+        DataSaver dataSaver = new DataSaver();
+        books = dataSaver.Load(this);
 
-        if(books.size()==0) {
+        if (books.size() == 0) {
             for (int i = 1; i < 2; ++i) {
-                Book a = new Book("软件项目管理案例教程（第4版）", R.drawable.book_2,"韩万江","姜立新","新华出版社","2002","1234567",true,"已读","http.ydrj");
+                Book a = new Book("软件项目管理案例教程（第4版）", R.drawable.book_2, "韩万江", "姜立新", "新华出版社", "2002", "1234567", true, "已读", "http.ydrj");
                 books.add(a);
-                Book b = new Book("创新工程实践", R.drawable.book_no_name,"钱松","徐振华","化学工业出版社","2018","12345678",true,"已读","http.cxgc");
+                Book b = new Book("创新工程实践", R.drawable.book_no_name, "钱松", "徐振华", "化学工业出版社", "2018", "12345678", true, "已读", "http.cxgc");
                 books.add(b);
-                Book c = new Book("信息安全数学基础（第2版）", R.drawable.book_1,"徐茂智","姜立新","高等教育出版社","2006","12345678",true,"已读","http.cxgc");
+                Book c = new Book("信息安全数学基础（第2版）", R.drawable.book_1, "徐茂智", "姜立新", "高等教育出版社", "2006", "12345678", true, "已读", "http.cxgc");
                 books.add(c);
             }
         }
@@ -105,25 +103,25 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewMain.setAdapter(mainRecycleViewAdapter);
 
         //SearchView搜索
-        SearchView searchView=findViewById(R.id.searchview);
+        SearchView searchView = findViewById(R.id.searchview);
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this,"open",Toast.LENGTH_SHORT).show();//点击搜索框
+                Toast.makeText(MainActivity.this, "open", Toast.LENGTH_SHORT).show();//点击搜索框
             }
         });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                int i=0;
-                for(;i<books.size();i++){
-                    if(query.equals(books.get(i).getTitle())){
+                int i = 0;
+                for (; i < books.size(); i++) {
+                    if (query.equals(books.get(i).getTitle())) {
                         //show
                         break;
                     }
                 }
-                if(i==books.size()){
-                    Toast.makeText(MainActivity.this,"dd",Toast.LENGTH_SHORT).show();
+                if (i == books.size()) {
+                    Toast.makeText(MainActivity.this, "dd", Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }
@@ -146,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.DrawerLayout);
         //添加toolbar的menu部分
         mToolbar.inflateMenu(R.menu.drawer_menu);
-        ActionBarDrawerToggle mActionBarDrawerToggle=new ActionBarDrawerToggle(this,mDrawerLayout,mToolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close){
+        ActionBarDrawerToggle mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -164,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                switch (id){
+                switch (id) {
                     case R.id.drawer_menu:
                         mDrawerLayout.closeDrawers();
                         break;
@@ -172,17 +170,25 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        //悬浮按钮
+        FloatingActionButton button=findViewById(R.id.addbutton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this ,EditBookActivity.class) ;
+                intent.putExtra("position",books.size());//传递当前books的长度
+                addDataLauncher.launch(intent);
+            }
+        });
     }
+
+
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId())
         {
-            case MENU_ID_ADD:
-                Intent intent=new Intent(this, EditBookActivity.class);
-                intent.putExtra("position",item.getOrder());//传递当前位置
-                addDataLauncher.launch(intent);//数据回传
-                break;
             case MENU_ID_UPDATE:
                 Intent intentupdate=new Intent(this, EditBookActivity.class);
                 intentupdate.putExtra("position",item.getOrder());//传递当前位置
@@ -231,11 +237,11 @@ public class MainActivity extends AppCompatActivity {
         return books;
     }
 
-    public class MainRecycleViewAdapter extends RecyclerView.Adapter<MainRecycleViewAdapter.ViewHolder> {
+    public static class MainRecycleViewAdapter extends RecyclerView.Adapter<MainRecycleViewAdapter.ViewHolder> {
 
         private final ArrayList<Book> localDataSet;
 
-        public final class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+        public static final class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
             private final TextView textView_title;
             private final TextView textView_author;
             private final ImageView imageview;
@@ -251,7 +257,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-                contextMenu.add(0,MENU_ID_ADD,getAdapterPosition(),"Add "+getAdapterPosition());
                 contextMenu.add(0,MENU_ID_UPDATE,getAdapterPosition(),"Update "+getAdapterPosition());
                 contextMenu.add(0,MENU_ID_DELETE,getAdapterPosition(),"Delete "+getAdapterPosition());
                 contextMenu.add(0,MENU_ID_DETAILS,getAdapterPosition(),"Details "+getAdapterPosition());
