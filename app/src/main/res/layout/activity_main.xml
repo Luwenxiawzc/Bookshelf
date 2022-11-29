@@ -19,10 +19,10 @@
             android:fitsSystemWindows="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             tools:ignore="MissingConstraints">
-<!--            <Spinner-->
-<!--                android:id="@+id/toolbar_spinner"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content" />-->
+            <!--            <Spinner-->
+            <!--                android:id="@+id/toolbar_spinner"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content" />-->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add"
-            app:backgroundTint="@color/red"
+            app:backgroundTint="@color/blue2"
             android:paddingLeft="300dp"
             android:paddingRight="50dp">
 
@@ -68,17 +68,19 @@
 
     <LinearLayout
         android:id="@+id/left_layout"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:menu="@menu/drawer_menu"
+        android:layout_gravity="left"
         android:background="@color/white"
         android:orientation="vertical"
-        android:layout_gravity="left">
+        app:menu="@menu/drawer_menu">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:background="@drawable/header"
             android:orientation="vertical">
+
             <ImageView
                 android:id="@+id/book_show"
                 android:layout_width="60dp"
@@ -87,34 +89,44 @@
                 android:layout_marginTop="0dp"
                 android:padding="2dp"
                 android:scaleType="fitXY" />
+
             <TextView
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
                 android:text="@string/侧边栏标题"
-                android:textSize="25sp"
                 android:textColor="@android:color/black"
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"/>
+                android:textSize="25sp" />
+
             <TextView
-                android:text="@string/侧边栏文字"
-                android:textSize="18sp"
-                android:textColor="@android:color/black"
                 android:layout_width="240dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/侧边栏文字"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
         </LinearLayout>
-<!--        <ListView-->
-<!--            android:id="@+id/id_lv"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="@color/white"-->
-<!--            android:divider="#CD853F"-->
-<!--            android:dividerHeight="2dp" >-->
-<!--        </ListView>-->
-        <Button
-            android:id="@+id/button_about"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="about"
-            android:layout_gravity="center_horizontal">
-        </Button>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/button_about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:paddingLeft="300dp"
+                android:paddingRight="50dp"
+                android:src="@drawable/ic_settings"
+                android:text="about"
+                app:backgroundTint="@color/blue">
+            </com.google.android.material.floatingactionbutton.FloatingActionButton>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_settings"
+                android:layout_marginTop="67dp"
+                android:paddingLeft="50dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

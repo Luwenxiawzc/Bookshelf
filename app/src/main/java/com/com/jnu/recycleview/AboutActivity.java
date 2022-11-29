@@ -1,17 +1,14 @@
 package com.com.jnu.recycleview;
 
-
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
-import com.google.android.libraries.intelligence.acceleration.Analytics;
-//import com.microsoft.appcenter.analytics.Analytics;
 import java.util.HashMap;
 import java.util.Map;
 
 public class AboutActivity extends AppCompatActivity {
-    private static final String TAG = "Aboutctivity";
+    private static final String TAG = "Aboutactivity";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,11 +16,9 @@ public class AboutActivity extends AppCompatActivity {
 
         Map<String, String> logEvents = new HashMap<>();
         logEvents.put("Activity", TAG);
-//        Analytics.trackEvent("onCreate", logEvents);
 
         logEvents.clear();
         logEvents.put("Name", "onCreate");
-//        Analytics.trackEvent(TAG, logEvents);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.about_toolbar);
         setSupportActionBar(mToolbar);
@@ -40,7 +35,7 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
+            case android.R.id.home://返回
                 finish();
                 break;
             default:
@@ -48,5 +43,4 @@ public class AboutActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

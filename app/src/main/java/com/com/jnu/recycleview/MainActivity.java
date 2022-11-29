@@ -79,8 +79,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageView imageView_1 = findViewById(R.id.book_show);
-        imageView_1.setImageResource(R.drawable.book_cover);
         RecyclerView recyclerViewMain = findViewById(R.id.recycle_view_books);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -139,18 +137,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //侧边
+        //抽屉DrawerLayout
+        ImageView imageView_1 = findViewById(R.id.book_show);
+        imageView_1.setImageResource(R.drawable.book_cover);
         Toolbar mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.activity_main_navigationView);
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.DrawerLayout);
-        //添加toolbar的menu部分
-        mToolbar.inflateMenu(R.menu.drawer_menu);
+        mToolbar.inflateMenu(R.menu.drawer_menu);//添加toolbar的menu部分
+
         ActionBarDrawerToggle mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
             }
-
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
@@ -172,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //悬浮按钮
+        //悬浮按钮（add）
         FloatingActionButton button=findViewById(R.id.addbutton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,8 +182,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //关于
-        Button button_about=findViewById(R.id.button_about);
+        //悬浮按钮（about）
+        FloatingActionButton button_about=findViewById(R.id.button_about);
         button_about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
