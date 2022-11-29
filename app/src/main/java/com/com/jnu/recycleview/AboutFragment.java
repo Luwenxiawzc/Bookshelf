@@ -187,7 +187,6 @@ public class AboutFragment extends PreferenceFragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return getResources().getConfiguration().getLocales().get(0);
         } else {
-            //noinspection deprecation
             return getResources().getConfiguration().locale;
         }
     }
