@@ -182,6 +182,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //悬浮按钮（settings）
+        FloatingActionButton button_setting=findViewById(R.id.button_setting);
+        button_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,SettingsActivity.class) ;
+                startActivity(intent);
+            }
+        });
         //悬浮按钮（about）
         FloatingActionButton button_about=findViewById(R.id.button_about);
         button_about.setOnClickListener(new View.OnClickListener() {
