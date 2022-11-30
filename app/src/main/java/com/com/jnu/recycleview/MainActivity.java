@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "open", Toast.LENGTH_SHORT).show();//点击搜索框
+                Toast.makeText(MainActivity.this, "search!", Toast.LENGTH_SHORT).show();//点击搜索框
             }
         });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

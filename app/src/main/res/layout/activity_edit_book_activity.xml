@@ -182,7 +182,7 @@
             android:layout_height="wrap_content"
             android:text="@string/book_show_website"
             android:textSize="19sp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="50dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -194,6 +194,7 @@
             android:id="@+id/button_确定"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="19sp"
             android:text="@string/button_确定"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="100dp">
@@ -202,6 +203,7 @@
             android:id="@+id/button_取消"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="19sp"
             android:text="@string/button_取消"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="50dp">

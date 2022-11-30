@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">个人图书管理</string>
+    <string name="app_name">BookShelf</string>
 
     <!--delete上下文菜单-->
     <string name="confirmation">Confirmation</string>

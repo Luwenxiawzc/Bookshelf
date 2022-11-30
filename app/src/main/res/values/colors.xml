@@ -5,13 +5,12 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <color name="black">#FF000000</color>Z
     <color name="white">#FFFFFFFF</color>
     <color name="pink">#EA86FB</color>
     <color name="qing">#4ED3E4</color>
     <color name="blue">#51B3FF</color>
     <color name="blue1">#3349DF</color>
     <color name="blue2">#5164E6</color>
-    <color name="red">#F60000</color>
     <color name="colorSecondaryText">#3349DF</color>
 </resources>

@@ -33,16 +33,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.github.clans:fab:1.6.4'
-
-    //添加material-dialogs依赖
-    //核心模块的依赖
     implementation 'com.afollestad.material-dialogs:core:0.9.1.0'
-    //公共模块的依赖
-    //公共模块包含不是每个人都需要的扩展库。 这包括 ColorChooserDialog、FolderChooserDialog、Material Preference 类和 MaterialSimpleListAdapter / MaterialSimpleListItem
     implementation 'com.afollestad.material-dialogs:commons:0.9.1.0'
-
     implementation 'com.google.code.gson:gson:2.8.4'
-
     implementation 'com.google.mlkit:vision-internal-vkp:18.1.1'
     implementation 'com.google.firebase:firebase-crashlytics-buildtools:2.9.2'
     testImplementation 'junit:junit:4.13.2'
