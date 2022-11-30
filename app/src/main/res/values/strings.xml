@@ -11,19 +11,19 @@
     <string name="button_确定">确定</string>
     <string name="button_取消">取消</string>
     <string name="button_返回">返回</string>
-    <string name="book_show_title">TiTle</string>
+    <string name="book_show_title">title</string>
     <string name="book_show_author">author</string>
     <string name="book_show_translator">translator</string>
     <string name="book_show_publisher">publisher</string>
-    <string name="book_show_pubTime">pubTime</string>
+    <string name="book_show_pubTime">pubtime</string>
     <string name="book_show_isbn">isbn</string>
     <string name="book_show_notes">notes</string>
     <string name="book_show_website">website</string>
-    <string name="book_show_title_1">TiTle:</string>
+    <string name="book_show_title_1">title:</string>
     <string name="book_show_author_1">author:</string>
     <string name="book_show_translator_1">translator:</string>
     <string name="book_show_publisher_1">publisher:</string>
-    <string name="book_show_pubTime_1">pubTime:</string>
+    <string name="book_show_pubTime_1">pubtime:</string>
     <string name="book_show_isbn_1">isbn:</string>
     <string name="book_show_notes_1">notes:</string>
     <string name="book_show_website_1">website:</string>
@@ -104,6 +104,7 @@
         <item>Translators</item>
         <item>Publisher</item>
         <item>PubTime</item>
+        <item>Isbn</item>
         <item>Notes</item>
         <item>Website</item>
     </string-array>

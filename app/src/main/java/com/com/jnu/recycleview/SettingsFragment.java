@@ -93,7 +93,7 @@ public class SettingsFragment extends PreferenceFragment {
         new MaterialDialog.Builder(getActivity())
                 .title(R.string.export_csv_dialog_title)
                 .items(R.array.export_csv_dialog_list)
-                .itemsCallbackMultiChoice(new Integer[]{0, 1, 2, 3, 4, 5, 6},
+                .itemsCallbackMultiChoice(new Integer[]{0, 1, 2, 3, 4, 5, 6,7},
                         new MaterialDialog.ListCallbackMultiChoice() {
                             @Override
                             public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {

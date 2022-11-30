@@ -3,6 +3,7 @@ package com.com.jnu.recycleview;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -103,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         //SearchView搜索
         SearchView searchView = findViewById(R.id.searchview);
+        searchView.setIconifiedByDefault(true);
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,13 +117,26 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 int i = 0;
                 for (; i < books.size(); i++) {
-                    if (query.equals(books.get(i).getTitle())) {
-                        //show
+                    if (query.equals(books.get(i).getTitle())||query.equals(books.get(i).getAuthor())||query.equals(books.get(i).getTranslator())
+                            ||query.equals(books.get(i).getPublisher())||query.equals(books.get(i).getPubTime())||query.equals(books.get(i).getIsbn())
+                            ||query.equals(books.get(i).getNotes())||query.equals(books.get(i).getWebsite()))
+                    {
+                        Intent intent_details=new Intent(MainActivity.this,BookDetailsActivity.class) ;
+                        intent_details.putExtra("title",books.get(i).getTitle());
+                        intent_details.putExtra("author",books.get(i).getAuthor());
+                        intent_details.putExtra("translator",books.get(i).getTranslator());
+                        intent_details.putExtra("publisher",books.get(i).getPublisher());
+                        intent_details.putExtra("pubTime",books.get(i).getPubTime());
+                        intent_details.putExtra("isbn",books.get(i).getIsbn());
+                        intent_details.putExtra("notes",books.get(i).getNotes());
+                        intent_details.putExtra("website",books.get(i).getWebsite());
+                        startActivity(intent_details);
+                        Toast.makeText(MainActivity.this, "The book On the Bookshelf!", Toast.LENGTH_SHORT).show();//搜索到这本书就转到详情页面
                         break;
                     }
                 }
                 if (i == books.size()) {
-                    Toast.makeText(MainActivity.this, "dd", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "There is no such book on the Bookshelf!", Toast.LENGTH_SHORT).show();//搜索不到这本书
                 }
                 return false;
             }
@@ -134,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onClose() {
                 return false;
-            }
+            }//关闭搜索
         });
 
         //抽屉DrawerLayout
