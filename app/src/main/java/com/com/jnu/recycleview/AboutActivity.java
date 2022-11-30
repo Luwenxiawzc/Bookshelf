@@ -20,14 +20,14 @@ public class AboutActivity extends AppCompatActivity {
         logEvents.clear();
         logEvents.put("Name", "onCreate");
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.about_toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.about_toolbar);//toorbar
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(R.string.about_preference_category_title);
+            getSupportActionBar().setTitle(R.string.about_preference_category_title);//设置title
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         if (savedInstanceState == null) {
-            AboutFragment aboutFragment = new AboutFragment();
+            AboutFragment aboutFragment = new AboutFragment();//fragment
             getFragmentManager().beginTransaction().add(R.id.activity_about_container, aboutFragment).commit();
         }
     }

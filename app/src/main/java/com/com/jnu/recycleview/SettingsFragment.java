@@ -12,6 +12,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import androidx.annotation.NonNull;
+import android.provider.DocumentsContract;
 import android.util.Log;
 import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
@@ -23,7 +24,6 @@ import com.google.gson.Gson;
 //import com.microsoft.appcenter.analytics.Analytics;
 //import com.opencsv.CSVWriter;
 //import com.smartjinyu.mybookshelf.database.BookBaseHelper;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -67,10 +67,10 @@ public class SettingsFragment extends PreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.settings_preference);
+        addPreferencesFromResource(R.xml.settings_preference);//获取布局
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         setBackupCategory();
-//        setWebServicesPreference();
+        setWebServicesPreference();
         setExportCSVPreference();
     }
 
@@ -82,19 +82,18 @@ public class SettingsFragment extends PreferenceFragment {
 
                 Map<String, String> logEvents = new HashMap<>();
                 logEvents.put("Export CSV", "Click Export to csv");
-//                Analytics.trackEvent(TAG, logEvents);
 
-//                exportToCSV();
+                exportToCSV();
                 return false;
             }
         });
-    }
+    }//到处为.csv文件
 
     private void exportToCSV() {
         new MaterialDialog.Builder(getActivity())
                 .title(R.string.export_csv_dialog_title)
                 .items(R.array.export_csv_dialog_list)
-                .itemsCallbackMultiChoice(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+                .itemsCallbackMultiChoice(new Integer[]{0, 1, 2, 3, 4, 5, 6},
                         new MaterialDialog.ListCallbackMultiChoice() {
                             @Override
                             public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
@@ -139,7 +138,6 @@ public class SettingsFragment extends PreferenceFragment {
                                             Toast.makeText(getActivity(), R.string.settings_no_document_provider_toast, Toast.LENGTH_LONG)
                                                     .show();
                                         }
-
                                         listDialog.dismiss();
                                     }
                                 })
@@ -177,7 +175,7 @@ public class SettingsFragment extends PreferenceFragment {
             initialSelected = gson.fromJson(rawWS, type);
         } else {
             initialSelected = new Integer[]{0, 1}; //two webServices currently
-        }
+        }//网络服务
 
         webServicesPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -216,6 +214,7 @@ public class SettingsFragment extends PreferenceFragment {
 
     }
 
+    //备份
     private void setBackupCategory() {
         backupPreference = findPreference("settings_pref_backup");
         backupPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -239,7 +238,6 @@ public class SettingsFragment extends PreferenceFragment {
                     Toast.makeText(getActivity(), R.string.settings_no_document_provider_toast, Toast.LENGTH_LONG)
                             .show();
                 }
-//                Analytics.trackEvent(TAG, logEvents);
                 return false;
             }
         });
@@ -248,12 +246,11 @@ public class SettingsFragment extends PreferenceFragment {
         restorePreference.setOnPreferenceClickListener(preference -> {
             Map<String, String> logEvents = new HashMap<>();
             logEvents.put("Restore", "Click Restore");
-//            Analytics.trackEvent(TAG, logEvents);
 
             Intent restoreFileIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             restoreFileIntent.addCategory(Intent.CATEGORY_OPENABLE);
             restoreFileIntent.setType("application/zip");
-            // restoreFileIntent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri); // requires >= API 26
+//             restoreFileIntent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri); // requires >= API 26
             if (restoreFileIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                 startActivityForResult(restoreFileIntent, OPEN_BACKUP_FILE_CODE);
             } else {
@@ -263,15 +260,10 @@ public class SettingsFragment extends PreferenceFragment {
                 Toast.makeText(getActivity(), R.string.settings_no_document_provider_toast, Toast.LENGTH_LONG)
                         .show();
             }
-//            Analytics.trackEvent(TAG, logEvents);
             return false;
         });
-
     }
 
-    /**
-     * Uri - uri to the backup file, get from storage access framework
-     */
     private class backupTask extends AsyncTask<Uri, Void, Boolean> {
         private MaterialDialog mDialog;
         private Uri zipFileUri;
@@ -305,7 +297,7 @@ public class SettingsFragment extends PreferenceFragment {
 //                fileName.add(getActivity().getDatabasePath(BookBaseHelper.DATABASE_NAME).getAbsolutePath());
 //                fileName.add(getActivity().getFilesDir().getParent() + "/shared_prefs/" + BookShelfLab.PreferenceName + ".xml");
 //                fileName.add(getActivity().getFilesDir().getParent() + "/shared_prefs/" + LabelLab.PreferenceName + ".xml");
-                fileName.add(getActivity().getFilesDir().getParent() + "/shared_prefs/" + getActivity().getPackageName() + "_preferences.xml");
+//                fileName.add(getActivity().getFilesDir().getParent() + "/shared_prefs/" + getActivity().getPackageName() + "_preferences.xml");
                 try {
                     zipFiles(fileName.toArray(new String[0]), zipFileUri);
                     Log.i(TAG, "Backup created " + zipFileUri);
@@ -316,7 +308,6 @@ public class SettingsFragment extends PreferenceFragment {
                 File coverZipFile = new File(coverZipFileName);
                 boolean deleted = coverZipFile.delete();
                 Log.i(TAG, "Cover.zip name = " + coverZipFileName + ", delete result = " + deleted);
-
                 return true;
             } else {
                 return false;
@@ -328,7 +319,6 @@ public class SettingsFragment extends PreferenceFragment {
             mDialog.dismiss();
             Map<String, String> logEvents = new HashMap<>();
             logEvents.put("Backup", "Backup Result = " + isSucceed.toString());
-//            Analytics.trackEvent(TAG, logEvents);
 
             if (isSucceed) {
                 String content = getString(R.string.backup_succeed_toast);
@@ -338,7 +328,7 @@ public class SettingsFragment extends PreferenceFragment {
             }
         }
 
-        //zip and unzip code is referenced to http://stackoverflow.com/questions/7485114/how-to-zip-and-unzip-the-files
+//        zip and unzip code is referenced to http://stackoverflow.com/questions/7485114/how-to-zip-and-unzip-the-files
         private void zipFiles(File[] files, Uri zipFileUri) throws IOException {
             if (files.length != 0) {
                 int BUFFER_SIZE = 2048;
@@ -369,8 +359,6 @@ public class SettingsFragment extends PreferenceFragment {
             }
             zipFiles(files, zipFileUri);
         }
-
-
     }
 
 
@@ -442,7 +430,7 @@ public class SettingsFragment extends PreferenceFragment {
                     copyFile(new File(src), new File(dest));
                     continue;
                 }
-//
+
 //                if (file.equals(BookBaseHelper.DATABASE_NAME)) {
 //                    String src = unZipDir + "/" + BookBaseHelper.DATABASE_NAME;
 //                    String dest = getActivity().getDatabasePath(BookBaseHelper.DATABASE_NAME).getAbsolutePath();
@@ -457,7 +445,6 @@ public class SettingsFragment extends PreferenceFragment {
             if (unzipDirectory.exists()) {
                 deleteRecursive(unzipDirectory);
             }
-
             return true;
         }
 
@@ -466,7 +453,6 @@ public class SettingsFragment extends PreferenceFragment {
             mDialog.dismiss();
             Map<String, String> logEvents = new HashMap<>();
             logEvents.put("Restore", "Restore Result = " + isSucceed.toString());
-//            Analytics.trackEvent(TAG, logEvents);
 
             if (isSucceed) {
                 Toast.makeText(getActivity(), getString(R.string.restore_succeed_toast), Toast.LENGTH_LONG).show();
@@ -572,9 +558,6 @@ public class SettingsFragment extends PreferenceFragment {
 
     }
 
-    /**
-     * Uri - uri to the CSV file, get from storage access framework
-     */
 //    private class exportCSVTask extends AsyncTask<Uri, Void, Boolean> {
 //        private MaterialDialog mDialog;
 //        private Uri csvFileUri;
@@ -595,7 +578,7 @@ public class SettingsFragment extends PreferenceFragment {
 //            Calendar mCalendar = Calendar.getInstance();
 //            csvFileUri = params[0];
 //            try (OutputStream outputStream = getActivity().getContentResolver().openOutputStream(csvFileUri)) {
-////                List<Book> mBooks = BookLab.get(getActivity()).getBooks();
+//                List<Book> mBooks = BookLab.get(getActivity()).getBooks();
 //                // sort Books
 //                int sortMethod = sharedPreferences.getInt("SORT_METHOD", 0);
 //                Comparator<Book> comparator;
@@ -617,7 +600,7 @@ public class SettingsFragment extends PreferenceFragment {
 //                }
 //                Collections.sort(mBooks, comparator);
 //
-//                int[] items = new int[11];
+//                int[] items = new int[7];
 //                if (exportCSVList != null) {
 //                    for (int i : exportCSVList) {
 //                        items[i] = 1;
@@ -628,7 +611,7 @@ public class SettingsFragment extends PreferenceFragment {
 //                outputStream.write(0xbb);
 //                outputStream.write(0xbf);
 //                // use utf-8 with BOM to avoid messy code in Chinese while using MS Excel
-//                CSVWriter csvWriter = new CSVWriter(new OutputStreamWriter(outputStream));
+////                CSVWriter csvWriter = new CSVWriter(new OutputStreamWriter(outputStream));
 //                // write the title bar
 //                List<String> titleBar = new ArrayList<>();
 //                titleBar.add(getString(R.string.export_csv_file_order));
@@ -638,7 +621,7 @@ public class SettingsFragment extends PreferenceFragment {
 //                    }
 //                }
 //                csvWriter.writeNext(titleBar.toArray(new String[0]));
-//
+
 //                for (int i = 1; i <= mBooks.size(); i++) {
 //                    List<String> entry = new ArrayList<>();
 //                    Book mBook = mBooks.get(i - 1);
@@ -742,9 +725,8 @@ public class SettingsFragment extends PreferenceFragment {
 //        protected void onPostExecute(Boolean isSucceed) {
 //            Map<String, String> logEvents = new HashMap<>();
 //            logEvents.put("Export CSV", "Export Result = " + isSucceed.toString());
-////            Analytics.trackEvent(TAG, logEvents);
 //
-////            mDialog.dismiss();
+//            mDialog.dismiss();
 //            if (isSucceed) {
 //                String toastText = getString(R.string.export_csv_export_succeed_toast);
 //                Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
@@ -780,7 +762,6 @@ public class SettingsFragment extends PreferenceFragment {
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                             Map<String, String> logEvents = new HashMap<>();
                             logEvents.put("Restore", "Confirm Restore");
-//                            Analytics.trackEvent(TAG, logEvents);
                             new restoreTask().execute(intent.getData());
                         }
                     })
@@ -790,7 +771,6 @@ public class SettingsFragment extends PreferenceFragment {
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                             Map<String, String> logEvents = new HashMap<>();
                             logEvents.put("Restore", "Give up Restore");
-//                            Analytics.trackEvent(TAG, logEvents);
                             dialog.dismiss();
                         }
                     })

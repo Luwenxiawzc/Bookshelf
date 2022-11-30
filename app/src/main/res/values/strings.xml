@@ -104,10 +104,6 @@
         <item>Translators</item>
         <item>Publisher</item>
         <item>PubTime</item>
-        <item>ISBN</item>
-        <item>ReadingStatus</item>
-        <item>Bookshelves</item>
-        <item>Labels</item>
         <item>Notes</item>
         <item>Website</item>
     </string-array>
