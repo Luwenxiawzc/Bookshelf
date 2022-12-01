@@ -25,11 +25,10 @@ public class Loan_Activity extends AppCompatActivity {
     private static final int MENU_ID_RETURN = 1;
     public ArrayList<Book> books_loan;//Book列表
     private loanBooksAdapter loanAdapter;
-//    Intent intent = getIntent();
     public static final int RESULT_CODE_SUCCESS_Loan = 777;
 
     //适配器
-    class loanBooksAdapter extends RecyclerView.Adapter<loanBooksAdapter.ViewHolder_1> {
+    static class loanBooksAdapter extends RecyclerView.Adapter<loanBooksAdapter.ViewHolder_1> {
 
         private final ArrayList<Book> localDataSet;
 
@@ -37,7 +36,7 @@ public class Loan_Activity extends AppCompatActivity {
             this.localDataSet = localDataSet;
         }
 
-        class ViewHolder_1 extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+        static class ViewHolder_1 extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
             private final TextView textView_title;
             private final TextView textView_author;
             private final ImageView imageview;
@@ -79,34 +78,29 @@ public class Loan_Activity extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId())
-        {
-            case MENU_ID_RETURN:
-                AlertDialog alertDialog_loan=new AlertDialog.Builder(this)
-                        .setTitle(R.string.confirmation)
-                        .setMessage(R.string.sure_to_return)
-                        .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
+        if(item.getItemId()==MENU_ID_RETURN) {
+            AlertDialog alertDialog_loan = new AlertDialog.Builder(this)
+                    .setTitle(R.string.confirmation)
+                    .setMessage(R.string.sure_to_return)
+                    .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
+                        Intent intent_return = new Intent();//将要还的书本的书籍传递回MainActivity
+                        intent_return.putExtra("title", books_loan.get(item.getOrder()).getTitle());
+                        intent_return.putExtra("author", books_loan.get(item.getOrder()).getAuthor());
+                        intent_return.putExtra("translator", books_loan.get(item.getOrder()).getTranslator());
+                        intent_return.putExtra("publisher", books_loan.get(item.getOrder()).getPublisher());
+                        intent_return.putExtra("pubTime", books_loan.get(item.getOrder()).getPubTime());
+                        intent_return.putExtra("isbn", books_loan.get(item.getOrder()).getIsbn());
+                        intent_return.putExtra("notes", books_loan.get(item.getOrder()).getNotes());
+                        intent_return.putExtra("website", books_loan.get(item.getOrder()).getWebsite());
+                        setResult(RESULT_CODE_SUCCESS_Loan, intent_return);//结果码
+                        books_loan.remove(item.getOrder());//在Loan_Activity删除已归还的书本
+                        new DataSaver_loan().Save(Loan_Activity.this, books_loan);//数据保存
+                        loanAdapter.notifyItemRemoved(item.getOrder());
+                        Loan_Activity.this.finish();//记得关闭当前的activity
 
-                            Intent intent_return=new Intent(this, MainActivity.class);
-                            intent_return.putExtra("title",books_loan.get(item.getOrder()).getTitle());
-                            intent_return.putExtra("author",books_loan.get(item.getOrder()).getAuthor());
-                            intent_return.putExtra("translator",books_loan.get(item.getOrder()).getTranslator());
-                            intent_return.putExtra("publisher",books_loan.get(item.getOrder()).getPublisher());
-                            intent_return.putExtra("pubTime",books_loan.get(item.getOrder()).getPubTime());
-                            intent_return.putExtra("isbn",books_loan.get(item.getOrder()).getIsbn());
-                            intent_return.putExtra("notes",books_loan.get(item.getOrder()).getNotes());
-                            intent_return.putExtra("website",books_loan.get(item.getOrder()).getWebsite());
-                            startActivity(intent_return);//将要还的书本的书籍传递回MainActivity
-                            books_loan.remove(item.getOrder());//在Loan_Activity删除已归还的书本
-                            new DataSaver_loan().Save(Loan_Activity.this,books_loan);//数据保存
-                            loanAdapter.notifyItemRemoved(item.getOrder());
-                            setResult(RESULT_CODE_SUCCESS_Loan,  intent_return);//结果码
-                            Loan_Activity.this.finish();//记得关闭当前的activity
-
-                        }).setNegativeButton(R.string.no, (dialog, which) -> {
-                        }).create();
-                alertDialog_loan.show();//对话框
-                break;
+                    }).setNegativeButton(R.string.no, (dialog, which) -> {
+                    }).create();
+            alertDialog_loan.show();//对话框
         }
         return super.onContextItemSelected(item);
     }
@@ -127,14 +121,6 @@ public class Loan_Activity extends AppCompatActivity {
         //没有借出的书本时
         if (books_loan.size() == 0) {
             Toast.makeText(Loan_Activity.this,R.string.book_null, Toast.LENGTH_SHORT).show();//点击搜索框
-            for (int i = 1; i < 2; ++i) {
-                Book a = new Book("软件项目管理案例教程（第4版）", R.drawable.book_2, "韩万江", "姜立新", "新华出版社", "2002", "1234567", true, "已读", "http.ydrj");
-                books_loan.add(a);
-                Book b = new Book("创新工程实践", R.drawable.book_no_name, "钱松", "徐振华", "化学工业出版社", "2018", "12345678", true, "已读", "http.cxgc");
-                books_loan.add(b);
-                Book c = new Book("信息安全数学基础（第2版）", R.drawable.book_1, "徐茂智", "姜立新", "高等教育出版社", "2006", "12345678", true, "已读", "http.cxgc");
-                books_loan.add(c);
-            }
         }
         loanAdapter = new loanBooksAdapter(books_loan);
         recyclerView_loan.setAdapter(loanAdapter);
@@ -143,17 +129,8 @@ public class Loan_Activity extends AppCompatActivity {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.loan_toolbar);
         mToolbar.inflateMenu(R.menu.drawer_menu);//添加toolbar的menu部分
 
-        Button button_return=findViewById(R.id.button_loan_return);//返回按钮
-        button_return.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Loan_Activity.this.finish();//记得关闭当前的activity
-            }
-        });
-
-
-        String title=this.getIntent().getStringExtra("title");//传入当前title;
-        if(title!=null) {//当从Loaned books悬浮按钮转过来的
+        if(this.getIntent().getStringExtra("title")!=null) {//当从Loaned books悬浮按钮转过来的
+            String title=this.getIntent().getStringExtra("title");//传入当前title;
             String author = this.getIntent().getStringExtra("author");
             String translator = this.getIntent().getStringExtra("translator");
             String publisher = this.getIntent().getStringExtra("publisher");
@@ -175,5 +152,12 @@ public class Loan_Activity extends AppCompatActivity {
             new DataSaver_loan().Save(this, books_loan);//数据保存
             loanAdapter.notifyItemInserted(books_loan.size());//通知适配器数据增加
         }
+        Button button_return=findViewById(R.id.button_loan_return);//返回按钮
+        button_return.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Loan_Activity.this.finish();//记得关闭当前的activity
+            }
+        });
     }
 }

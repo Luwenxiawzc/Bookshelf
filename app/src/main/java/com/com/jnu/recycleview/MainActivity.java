@@ -73,21 +73,21 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });//新的数据传递（update的数据回传）
-//    private final ActivityResultLauncher<Intent> loanDataLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-//            result -> {
-//                if (null != result) {
-//                    Intent intent = result.getData();//获得传回的intent
-//                    if (result.getResultCode() == Loan_Activity. RESULT_CODE_SUCCESS_Loan) {
-//                        assert intent != null;
-//                        Bundle bundle = intent.getExtras();
-//                        books.add(0, new Book(bundle.getString("title"), R.drawable.book_header, bundle.getString("author"),
-//                                bundle.getString("translator"), bundle.getString("publisher"), bundle.getString("pubTime"),
-//                                bundle.getString("isbn"), true, bundle.getString("notes"), bundle.getString("website")));//添加一个新的Book
-//                        new DataSaver_exist().Save(this, books);//数据保存
-//                        mainRecycleViewAdapter.notifyItemInserted(0);//通知适配器数据增加
-//                    }
-//                }
-//            });//新的数据传递（return的数据回传）
+    private final ActivityResultLauncher<Intent> loanDataLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (null != result) {
+                    Intent intent = result.getData();//获得传回的intent
+                    if (result.getResultCode() == Loan_Activity. RESULT_CODE_SUCCESS_Loan) {
+                        assert intent != null;
+                        Bundle bundle = intent.getExtras();
+                        books.add(books.size(), new Book(bundle.getString("title"), R.drawable.book_header, bundle.getString("author"),
+                                bundle.getString("translator"), bundle.getString("publisher"), bundle.getString("pubTime"),
+                                bundle.getString("isbn"), true, bundle.getString("notes"), bundle.getString("website")));//添加一个新的Book
+                        new DataSaver_exist().Save(this, books);//数据保存
+                        mainRecycleViewAdapter.notifyItemInserted(books.size());//通知适配器数据增加
+                    }
+                }
+            });//新的数据传递（return的数据回传）
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -243,7 +243,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this,Loan_Activity.class) ;
-                startActivity(intent);
+//                startActivity(intent);
+                loanDataLauncher.launch(intent);//从loaned books的悬浮按钮打开的也可以传回数据
             }
         });
     }
@@ -306,11 +307,10 @@ public class MainActivity extends AppCompatActivity {
                             intent_loan.putExtra("isbn",books.get(item.getOrder()).getIsbn());
                             intent_loan.putExtra("notes",books.get(item.getOrder()).getNotes());
                             intent_loan.putExtra("website",books.get(item.getOrder()).getWebsite());
-                            startActivity(intent_loan);//把书本借出，传递数据到Loan_Activity
+                            loanDataLauncher.launch(intent_loan);
                             books.remove(item.getOrder());//MainActivity移除已借出的书本
                             new DataSaver_exist().Save(MainActivity.this,books);//数据保存
                             mainRecycleViewAdapter.notifyItemRemoved(item.getOrder());
-//                            loanDataLauncher.launch(intent_loan);
                         }).setNegativeButton(R.string.no, (dialog, which) -> {
                         }).create();
                 alertDialog_loan.show();//对话框
