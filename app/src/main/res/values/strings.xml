@@ -7,7 +7,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
-    <!--详情/编辑/借-->
+    <!--详情/编辑-->
     <string name="button_确定">confirm</string>
     <string name="button_取消">cancel</string>
     <string name="button_返回">return</string>
@@ -32,6 +32,7 @@
     <string name="sure_to_loan">Are you sure to loan the book?</string>
     <string name="loan">Loaned books</string>
     <string name="sure_to_return">Are you sure the book has been returned?</string>
+    <string name="book_null">Books that have not been lent out!</string>
 
 <!--exist-->
     <string name="exist">Existing books</string>

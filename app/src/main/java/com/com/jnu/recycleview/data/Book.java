@@ -31,8 +31,6 @@ public class Book implements Serializable {//对象序列化
     public Book() {
     }
 
-
-
     //get和set函数
     public String getTitle() {
         return title;

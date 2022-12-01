@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.com.jnu.recycleview.data.Book;
 import com.com.jnu.recycleview.data.DataSaver_loan;
 import java.util.ArrayList;
@@ -24,10 +25,8 @@ public class Loan_Activity extends AppCompatActivity {
     private static final int MENU_ID_RETURN = 1;
     public ArrayList<Book> books_loan;//Book列表
     private loanBooksAdapter loanAdapter;
-    Intent intent = getIntent();
+//    Intent intent = getIntent();
     public static final int RESULT_CODE_SUCCESS_Loan = 777;
-
-
 
     //适配器
     class loanBooksAdapter extends RecyclerView.Adapter<loanBooksAdapter.ViewHolder_1> {
@@ -125,7 +124,9 @@ public class Loan_Activity extends AppCompatActivity {
         DataSaver_loan dataSaver = new DataSaver_loan();
         books_loan = dataSaver.Load(this);
 
+        //没有借出的书本时
         if (books_loan.size() == 0) {
+            Toast.makeText(Loan_Activity.this,R.string.book_null, Toast.LENGTH_SHORT).show();//点击搜索框
             for (int i = 1; i < 2; ++i) {
                 Book a = new Book("软件项目管理案例教程（第4版）", R.drawable.book_2, "韩万江", "姜立新", "新华出版社", "2002", "1234567", true, "已读", "http.ydrj");
                 books_loan.add(a);
@@ -149,34 +150,30 @@ public class Loan_Activity extends AppCompatActivity {
                 Loan_Activity.this.finish();//记得关闭当前的activity
             }
         });
-//
-//        ImageView imageView_show_cover=findViewById(R.id.image_view_book_cover_loan);
-//        imageView_show_cover.setImageResource(R.drawable.book_header);
-//        TextView textView_show_title=findViewById(R.id.text_view_book_title_loan);
-//        TextView textView_show_author=findViewById(R.id.text_view_book_author_loan);
-//        textView_show_title.setText(intent.getStringExtra("title"));
-//        textView_show_author.setText(intent.getStringExtra("author"));
-//
-//        String title=(String)intent.getStringExtra("title");
-//        String author=intent.getStringExtra("author");
-//        String translator=(String)intent.getStringExtra("translator");
-//        String publisher=intent.getStringExtra("publisher");
-//        String pubTime=intent.getStringExtra("pubTime");
-//        String isbn=intent.getStringExtra("isbn");
-//        String notes=intent.getStringExtra("notes");
-//        String website=intent.getStringExtra("website");
-//        Book book_new_loan=new Book();
-//        book_new_loan.setTitle(title);
-//        book_new_loan.setAuthor(author);
-//        book_new_loan.setCoverResourceId(R.drawable.book_header);
-//        book_new_loan.setTranslator(translator);
-//        book_new_loan.setPublisher(publisher);
-//        book_new_loan.setPubTime(pubTime);
-//        book_new_loan.setIsbn(isbn);
-//        book_new_loan.setNotes(notes);
-//        book_new_loan.setWebsite(website);
-//        books_loan.add(book_new_loan);
-//        new DataSaver_loan().Save(this, books_loan);//数据保存
-//        loanAdapter.notifyItemInserted(books_loan.size());//通知适配器数据增加
+
+
+        String title=this.getIntent().getStringExtra("title");//传入当前title;
+        if(title!=null) {//当从Loaned books悬浮按钮转过来的
+            String author = this.getIntent().getStringExtra("author");
+            String translator = this.getIntent().getStringExtra("translator");
+            String publisher = this.getIntent().getStringExtra("publisher");
+            String pubTime = this.getIntent().getStringExtra("pubTime");
+            String isbn = this.getIntent().getStringExtra("isbn");
+            String notes = this.getIntent().getStringExtra("notes");
+            String website = this.getIntent().getStringExtra("website");
+            Book book_new_loan = new Book();
+            book_new_loan.setTitle(title);
+            book_new_loan.setAuthor(author);
+            book_new_loan.setCoverResourceId(R.drawable.book_header);
+            book_new_loan.setTranslator(translator);
+            book_new_loan.setPublisher(publisher);
+            book_new_loan.setPubTime(pubTime);
+            book_new_loan.setIsbn(isbn);
+            book_new_loan.setNotes(notes);
+            book_new_loan.setWebsite(website);
+            books_loan.add(book_new_loan);
+            new DataSaver_loan().Save(this, books_loan);//数据保存
+            loanAdapter.notifyItemInserted(books_loan.size());//通知适配器数据增加
+        }
     }
 }
