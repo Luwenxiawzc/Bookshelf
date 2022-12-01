@@ -9,8 +9,12 @@
     <color name="white">#FFFFFFFF</color>
     <color name="pink">#EA86FB</color>
     <color name="qing">#4ED3E4</color>
-    <color name="blue">#51B3FF</color>
-    <color name="blue1">#3349DF</color>
-    <color name="blue2">#5164E6</color>
-    <color name="colorSecondaryText">#3349DF</color>
+    <color name="blue">#147ED3</color>
+    <color name="bluee">#1E39EC</color>
+    <color name="blue1">#117CD1</color>
+    <color name="blue11">#63E3F3</color>
+    <color name="blue2">#07A7BC</color>
+    <color name="blue3">#4759C1</color>
+    <color name="blue4">#2135B5</color>
+    <color name="colorSecondaryText">#031275</color>
 </resources>

@@ -17,7 +17,7 @@
             android:id="@+id/main_toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/blue1"
+            android:background="@color/bluee"
             android:fitsSystemWindows="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             tools:ignore="MissingConstraints">
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add"
-            app:backgroundTint="@color/blue2"
+            app:backgroundTint="@color/blue"
             android:paddingLeft="300dp"
             android:paddingRight="50dp">
 
@@ -110,22 +110,21 @@
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="150dp"
                 android:orientation="horizontal">
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/button_setting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="170dp"
+                    android:layout_marginTop="70dp"
                     android:src="@drawable/ic_settings"
-                    android:text="about"
-                    app:backgroundTint="@color/blue">
+                    app:backgroundTint="@color/blue11">
                 </com.google.android.material.floatingactionbutton.FloatingActionButton>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_settings"
-                    android:layout_marginTop="187dp"
+                    android:layout_marginTop="87dp"
                     android:paddingLeft="50dp"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
@@ -133,22 +132,65 @@
 <!--about的floatingbutton及展示的文字-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="130dp"
                 android:orientation="horizontal">
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/button_about"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="80dp"
+                    android:layout_marginTop="40dp"
                     android:src="@drawable/ic_about"
-                    android:text="about"
                     app:backgroundTint="@color/blue2">
                 </com.google.android.material.floatingactionbutton.FloatingActionButton>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/about_preference_category_title"
-                    android:layout_marginTop="97dp"
+                    android:layout_marginTop="57dp"
+                    android:paddingLeft="50dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+<!--现有书的floatingbutton及展示的文字-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:orientation="horizontal">
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/button_exist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_flash_on"
+                    app:backgroundTint="@color/blue">
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Existing books"
+                    android:layout_marginTop="37dp"
+                    android:paddingLeft="50dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+<!--已借出的书的floatingbutton及展示的文字-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="horizontal">
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/button_loan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_flash_off"
+                    app:backgroundTint="@color/blue3">
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loaned books"
+                    android:layout_marginTop="27dp"
                     android:paddingLeft="50dp"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />

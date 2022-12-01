@@ -1,9 +1,27 @@
 package com.com.jnu.recycleview;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.com.jnu.recycleview.data.Book;
+import com.com.jnu.recycleview.data.DataSaver;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,24 +29,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.ContextMenu;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
-import com.com.jnu.recycleview.data.Book;
-import com.com.jnu.recycleview.data.DataSaver;
-import com.google.android.material.navigation.NavigationView;
-import java.util.ArrayList;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -210,6 +210,23 @@ public class MainActivity extends AppCompatActivity {
         //悬浮按钮（about）
         FloatingActionButton button_about=findViewById(R.id.button_about);
         button_about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,AboutActivity.class) ;
+                startActivity(intent);
+            }
+        });
+        //悬浮按钮（existing books）
+        FloatingActionButton button_exist=findViewById(R.id.button_exist);
+        button_exist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDrawerLayout.closeDrawers();
+            }
+        });
+        //悬浮按钮（loaned books）
+        FloatingActionButton button_loan=findViewById(R.id.button_loan);
+        button_loan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this,AboutActivity.class) ;
