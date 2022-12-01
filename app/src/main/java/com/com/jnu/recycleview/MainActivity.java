@@ -11,14 +11,11 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.com.jnu.recycleview.data.Book;
 import com.com.jnu.recycleview.data.DataSaver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
 import java.util.ArrayList;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -81,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerViewMain = findViewById(R.id.recycle_view_books);
+        RecyclerView recyclerViewMain = findViewById(R.id.recycle_main_books);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);//垂直
@@ -156,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         //抽屉DrawerLayout
         ImageView imageView_1 = findViewById(R.id.book_show);
         imageView_1.setImageResource(R.drawable.book_cover);
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.loan_toolbar);
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.activity_main_navigationView);
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.DrawerLayout);
         mToolbar.inflateMenu(R.menu.drawer_menu);//添加toolbar的menu部分
