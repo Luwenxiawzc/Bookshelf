@@ -14,7 +14,7 @@
         android:orientation="vertical">
 <!--toorbar-->
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/loan_toolbar"
+            android:id="@+id/main_toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/bluee"
@@ -48,7 +48,6 @@
             android:layout_width="match_parent"
             android:layout_height="550dp"
             app:layout_constraintStart_toStartOf="parent"
-
             app:layout_constraintTop_toTopOf="parent" />
 <!--添加的floatingbutton-->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -163,7 +162,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Existing books"
+                    android:text="@string/exist"
                     android:layout_marginTop="37dp"
                     android:paddingLeft="50dp"
                     android:textColor="@android:color/black"
@@ -185,7 +184,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Loaned books"
+                    android:text="@string/loan"
                     android:layout_marginTop="27dp"
                     android:paddingLeft="50dp"
                     android:textColor="@android:color/black"

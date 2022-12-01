@@ -12,7 +12,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.com.jnu.recycleview.data.Book;
-import com.com.jnu.recycleview.data.DataSaver;
+import com.com.jnu.recycleview.data.DataSaver_exist;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int MENU_ID_UPDATE = 1;
     private static final int MENU_ID_DELETE = 2;
     private static final int MENU_ID_DETAILS = 3;
+    private static final int MENU_ID_LOAN = 4;
     public ArrayList<Book> books;//Book列表
     private MainRecycleViewAdapter mainRecycleViewAdapter;
 
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                         books.add(position, new Book(bundle.getString("title"), R.drawable.book_header, bundle.getString("author"),
                                 bundle.getString("translator"), bundle.getString("publisher"), bundle.getString("pubTime"),
                                 bundle.getString("isbn"), true, bundle.getString("notes"), bundle.getString("website")));//添加一个新的Book
-                        new DataSaver().Save(this, books);//数据保存
+                        new DataSaver_exist().Save(this, books);//数据保存
                         mainRecycleViewAdapter.notifyItemInserted(position);//通知适配器数据增加
                     }
                 }
@@ -67,11 +68,25 @@ public class MainActivity extends AppCompatActivity {
                         books.get(position).setIsbn(bundle.getString("isbn"));
                         books.get(position).setNotes(bundle.getString("notes"));
                         books.get(position).setWebsite(bundle.getString("website"));
-                        new DataSaver().Save(this, books);//数据保存
+                        new DataSaver_exist().Save(this, books);//数据保存
                         mainRecycleViewAdapter.notifyItemChanged(position);//通知适配器数据更改
                     }
                 }
             });//新的数据传递（update的数据回传）
+    private final ActivityResultLauncher<Intent> loanDataLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (null != result) {
+                    Intent intent = result.getData();//获得传回的intent
+                    if (result.getResultCode() == Loan_Activity. RESULT_CODE_SUCCESS_Loan) {
+                        Bundle bundle = intent.getExtras();
+                        books.add(books.size()+1, new Book(bundle.getString("title"), R.drawable.book_header, bundle.getString("author"),
+                                bundle.getString("translator"), bundle.getString("publisher"), bundle.getString("pubTime"),
+                                bundle.getString("isbn"), true, bundle.getString("notes"), bundle.getString("website")));//添加一个新的Book
+                        new DataSaver_exist().Save(this, books);//数据保存
+                        mainRecycleViewAdapter.notifyItemInserted(books.size()+1);//通知适配器数据增加
+                    }
+                }
+            });//新的数据传递（return的数据回传）
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);//垂直
         recyclerViewMain.setLayoutManager(linearLayoutManager);
 
-        DataSaver dataSaver = new DataSaver();
+        DataSaver_exist dataSaver = new DataSaver_exist();
         books = dataSaver.Load(this);
 
         if (books.size() == 0) {
@@ -153,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         //抽屉DrawerLayout
         ImageView imageView_1 = findViewById(R.id.book_show);
         imageView_1.setImageResource(R.drawable.book_cover);
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.loan_toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.activity_main_navigationView);
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.DrawerLayout);
         mToolbar.inflateMenu(R.menu.drawer_menu);//添加toolbar的menu部分
@@ -226,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
         button_loan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,AboutActivity.class) ;
+                Intent intent=new Intent(MainActivity.this,Loan_Activity.class) ;
                 startActivity(intent);
             }
         });
@@ -255,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
                         .setMessage(R.string.sure_to_delete)
                         .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
                             books.remove(item.getOrder());
-                            new DataSaver().Save(MainActivity.this,books);//数据保存
+                            new DataSaver_exist().Save(MainActivity.this,books);//数据保存
                             mainRecycleViewAdapter.notifyItemRemoved(item.getOrder());
                         }).setNegativeButton(R.string.no, (dialog, which) -> {
                         }).create();
@@ -275,6 +290,29 @@ public class MainActivity extends AppCompatActivity {
                 intent_details.putExtra("notes",books.get(item.getOrder()).getNotes());
                 intent_details.putExtra("website",books.get(item.getOrder()).getWebsite());
                 startActivity(intent_details);
+                break;
+            case MENU_ID_LOAN:
+                AlertDialog alertDialog_loan=new AlertDialog.Builder(this)
+                        .setTitle(R.string.confirmation)
+                        .setMessage(R.string.sure_to_loan)
+                        .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
+                            Intent intent_loan=new Intent(this, Loan_Activity.class);//转到Loan_Activity
+                            intent_loan.putExtra("title",books.get(item.getOrder()).getTitle());
+                            intent_loan.putExtra("author",books.get(item.getOrder()).getAuthor());
+                            intent_loan.putExtra("translator",books.get(item.getOrder()).getTranslator());
+                            intent_loan.putExtra("publisher",books.get(item.getOrder()).getPublisher());
+                            intent_loan.putExtra("pubTime",books.get(item.getOrder()).getPubTime());
+                            intent_loan.putExtra("isbn",books.get(item.getOrder()).getIsbn());
+                            intent_loan.putExtra("notes",books.get(item.getOrder()).getNotes());
+                            intent_loan.putExtra("website",books.get(item.getOrder()).getWebsite());
+                            startActivity(intent_loan);//把书本借出，传递数据到Loan_Activity
+                            books.remove(item.getOrder());//MainActivity移除已借出的书本
+                            new DataSaver_exist().Save(MainActivity.this,books);//数据保存
+                            mainRecycleViewAdapter.notifyItemRemoved(item.getOrder());
+                            loanDataLauncher.launch(intent_loan);
+                        }).setNegativeButton(R.string.no, (dialog, which) -> {
+                        }).create();
+                alertDialog_loan.show();//对话框
                 break;
         }
         return super.onContextItemSelected(item);
@@ -307,6 +345,7 @@ public class MainActivity extends AppCompatActivity {
                 contextMenu.add(0,MENU_ID_UPDATE,getAdapterPosition(),"Update "+getAdapterPosition());
                 contextMenu.add(0,MENU_ID_DELETE,getAdapterPosition(),"Delete "+getAdapterPosition());
                 contextMenu.add(0,MENU_ID_DETAILS,getAdapterPosition(),"Details "+getAdapterPosition());
+                contextMenu.add(0,MENU_ID_LOAN,getAdapterPosition(),"Loan "+getAdapterPosition());
             }//上下文菜单的设置
         }
 

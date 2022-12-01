@@ -19,6 +19,15 @@
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         tools:ignore="MissingConstraints">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/loan"
+            android:layout_marginLeft="143dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
     </androidx.appcompat.widget.Toolbar>
 <!--RecycleView-->
     <androidx.recyclerview.widget.RecyclerView
@@ -26,7 +35,16 @@
         android:layout_width="match_parent"
         android:layout_height="550dp"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/button_loan_return"
+            android:layout_width="130dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/button_返回"
+            android:textSize="18sp">
+        </Button>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,7 +28,10 @@ public class Book implements Serializable {//对象序列化
         this.notes = notes;
         this.website = website;
     }
-    //没写阅读状态、标签、书架
+    public Book() {
+    }
+
+
 
     //get和set函数
     public String getTitle() {
