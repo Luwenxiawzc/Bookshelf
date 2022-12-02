@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             result -> {
                 if (null != result) {
                     Intent intent = result.getData();//获得传回的intent
-                    if (result.getResultCode() == Loan_Activity. RESULT_CODE_SUCCESS_Loan) {
+                    if (result.getResultCode() == LoanActivity. RESULT_CODE_SUCCESS_Loan) {
                         assert intent != null;
                         Bundle bundle = intent.getExtras();
                         books.add(books.size(), new Book(bundle.getString("title"), R.drawable.book_header, bundle.getString("author"),
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
         button_loan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,Loan_Activity.class) ;
+                Intent intent=new Intent(MainActivity.this, LoanActivity.class) ;
 //                startActivity(intent);
                 loanDataLauncher.launch(intent);//从loaned books的悬浮按钮打开的也可以传回数据
             }
@@ -298,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
                         .setTitle(R.string.confirmation)
                         .setMessage(R.string.sure_to_loan)
                         .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
-                            Intent intent_loan=new Intent(this, Loan_Activity.class);//转到Loan_Activity
+                            Intent intent_loan=new Intent(this, LoanActivity.class);//转到Loan_Activity
                             intent_loan.putExtra("title",books.get(item.getOrder()).getTitle());
                             intent_loan.putExtra("author",books.get(item.getOrder()).getAuthor());
                             intent_loan.putExtra("translator",books.get(item.getOrder()).getTranslator());

@@ -1,13 +1,11 @@
 package com.com.jnu.recycleview.data;
 
 import android.content.Context;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
 
 public class DataSaver_exist {

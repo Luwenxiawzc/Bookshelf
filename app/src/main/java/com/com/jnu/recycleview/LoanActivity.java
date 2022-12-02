@@ -21,7 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class Loan_Activity extends AppCompatActivity {
+public class LoanActivity extends AppCompatActivity {
     private static final int MENU_ID_RETURN = 1;
     public ArrayList<Book> books_loan;//Book列表
     private loanBooksAdapter loanAdapter;
@@ -94,9 +94,9 @@ public class Loan_Activity extends AppCompatActivity {
                         intent_return.putExtra("website", books_loan.get(item.getOrder()).getWebsite());
                         setResult(RESULT_CODE_SUCCESS_Loan, intent_return);//结果码
                         books_loan.remove(item.getOrder());//在Loan_Activity删除已归还的书本
-                        new DataSaver_loan().Save(Loan_Activity.this, books_loan);//数据保存
+                        new DataSaver_loan().Save(LoanActivity.this, books_loan);//数据保存
                         loanAdapter.notifyItemRemoved(item.getOrder());
-                        Loan_Activity.this.finish();//记得关闭当前的activity
+                        LoanActivity.this.finish();//记得关闭当前的activity
 
                     }).setNegativeButton(R.string.no, (dialog, which) -> {
                     }).create();
@@ -120,7 +120,7 @@ public class Loan_Activity extends AppCompatActivity {
 
         //没有借出的书本时
         if (books_loan.size() == 0) {
-            Toast.makeText(Loan_Activity.this,R.string.book_null, Toast.LENGTH_SHORT).show();//点击搜索框
+            Toast.makeText(LoanActivity.this,R.string.book_null, Toast.LENGTH_SHORT).show();//点击搜索框
         }
         loanAdapter = new loanBooksAdapter(books_loan);
         recyclerView_loan.setAdapter(loanAdapter);
@@ -156,7 +156,7 @@ public class Loan_Activity extends AppCompatActivity {
         button_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Loan_Activity.this.finish();//记得关闭当前的activity
+                LoanActivity.this.finish();//记得关闭当前的activity
             }
         });
     }

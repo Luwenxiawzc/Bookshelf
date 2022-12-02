@@ -14,7 +14,7 @@
         android:theme="@style/Theme.RecycleView"
         tools:targetApi="31">
         <activity
-            android:name=".Loan_Activity"
+            android:name=".LoanActivity"
             android:exported="false" />
         <activity
             android:name=".SettingsActivity"

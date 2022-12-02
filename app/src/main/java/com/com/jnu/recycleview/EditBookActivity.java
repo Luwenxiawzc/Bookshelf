@@ -1,12 +1,13 @@
 package com.com.jnu.recycleview;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class EditBookActivity extends AppCompatActivity {
 
@@ -59,7 +60,6 @@ public class EditBookActivity extends AppCompatActivity {
                 bundle.putString("notes", book_edit_notes.getText().toString());
                 bundle.putString("website", book_edit_website.getText().toString());
                 bundle.putInt("position",position);//传回当前位置
-
                 intent.putExtras(bundle);
                 setResult(RESULT_CODE_SUCCESS, intent);//结果码
                 EditBookActivity.this.finish();//记得关闭当前的activity
